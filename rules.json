@@ -1,0 +1,8 @@
+[
+  {
+    "id": 1,
+    "priority": 10,
+    "action": { "type": "redirect", "redirect": { "extensionPath": "/portal.html" } },
+    "condition": { "requestDomains": ["dultawifi.com"], "resourceTypes": ["main_frame"] }
+  }
+]

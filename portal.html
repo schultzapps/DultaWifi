@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dulta Sync Wi-Fi</title>
+  <link rel="icon" href="icons/32.png">
+  <link rel="stylesheet" href="portal.css">
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="widget" viewBox="0 0 100 88">
+      <polygon points="50,0 100,88 0,88" style="fill: var(--widget-light, #e31837)"/>
+      <polygon points="50,0 100,88 58,88" style="fill: var(--widget-dark, #9d1229)"/>
+    </symbol>
+    <symbol id="plane" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M21.5 12c0-.8-.7-1.2-1.5-1.2h-5.3L10 3.5H8.2l2.4 7.3H5.4L3.8 8.6H2.5l1 3.4-1 3.4h1.3l1.6-2.2h5.2l-2.4 7.3H10l4.7-7.3H20c.8 0 1.5-.4 1.5-1.2z"/>
+    </symbol>
+    <symbol id="muted" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm15.1 3 2.7-2.7-1.1-1.1-2.7 2.7-2.7-2.7-1.1 1.1 2.7 2.7-2.7 2.7 1.1 1.1 2.7-2.7 2.7 2.7 1.1-1.1-2.7-2.7z"/>
+    </symbol>
+    <symbol id="speaker" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4zM14 3.2v2.1a7 7 0 0 1 0 13.4v2.1a9 9 0 0 0 0-17.6z"/>
+    </symbol>
+  </svg>
+
+  <!-- Shown for a few seconds on every page load, like a real portal coming up -->
+  <div class="splash" id="splash" role="status">
+    <span class="splash-ring"></span>
+    <p>Connecting to DultaWiFi.com</p>
+  </div>
+
+  <!-- ===================== HOME ===================== -->
+  <section id="home" class="view">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="eta">
+          <span class="eta-icon"><svg><use href="#plane"/></svg><i></i></span>
+          <span class="eta-text"><b data-flight="remaining">4h 12m</b><small>to arrival</small></span>
+        </div>
+        <button class="btn btn-red" id="access">Access Free Wi-Fi</button>
+        <span class="wifi-ok hidden" id="wifi-ok"><i></i>Wi-Fi Connected</span>
+      </div>
+    </header>
+
+    <main class="home">
+      <h1 class="caps-title">Dulta Sync Exclusives</h1>
+      <nav class="tabs" role="tablist">
+        <button class="tab active" data-tab="exclusives" role="tab">My Exclusives</button>
+        <button class="tab" data-tab="trip" role="tab">My Trip</button>
+      </nav>
+      <div class="tab-rail"><span id="tab-indicator"></span></div>
+      <p class="presented">Fast, Free Wi-Fi presented by <span class="tmo">Tee-Mobile</span></p>
+
+      <div id="tab-exclusives" class="tiles">
+        <article class="tile tile-wifi" id="tile-wifi">
+          <div class="tile-wifi-art">
+            <div class="ad-logo"><svg><use href="#widget"/></svg>DULTA</div>
+            <div class="ad-kicker">FAST + FREE</div>
+            <div class="ad-huge">Wi-Fi</div>
+            <div class="ad-sub">FOR SKYMYLES<sup>®</sup> MEMBERS</div>
+          </div>
+          <button class="btn btn-white" id="tile-wifi-cta">Access Free Wi-Fi</button>
+        </article>
+
+        <article class="tile tile-art tile-messaging" data-sheet="messaging">
+          <div class="art"><span class="bubble b1"></span><span class="bubble b2"></span><span class="bubble b3"></span></div>
+          <div class="tile-copy"><small>Free Messaging</small><h3>Text from 35,000 feet on every flight</h3></div>
+        </article>
+
+        <article class="tile tile-art tile-studio" data-sheet="studio">
+          <div class="art posters"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="tile-copy"><small>Dulta Studio</small><h3>Hundreds of free movies and shows at your seat</h3></div>
+        </article>
+
+        <article class="tile tile-art tile-track" data-tab-link="trip">
+          <div class="art"><svg class="arc" viewBox="0 0 300 120" preserveAspectRatio="none"><path d="M10 110 Q150 -20 290 110" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="6 6"/></svg></div>
+          <div class="tile-copy"><small>My Trip</small><h3>Track your flight in real time</h3></div>
+        </article>
+
+        <article class="tile tile-art tile-app" data-sheet="app">
+          <div class="art"><span class="phone"></span></div>
+          <div class="tile-copy"><small>Fly Dulta App</small><h3>Your boarding pass, bags and gate info in one place</h3></div>
+        </article>
+      </div>
+
+      <div id="tab-trip" class="trip hidden">
+        <div class="trip-card">
+          <div class="trip-head"><span data-flight="number">DL</span><span>Nonstop</span></div>
+          <div class="trip-times">
+            <div><b data-flight="departs"></b><span data-flight="from"></span><small data-flight="fromCity"></small></div>
+            <svg class="trip-plane"><use href="#plane"/></svg>
+            <div class="right"><b data-flight="arrives"></b><span data-flight="to"></span><small data-flight="toCity"></small></div>
+          </div>
+          <div class="trip-progress" data-flight-progress><span class="fill"></span><svg class="marker"><use href="#plane"/></svg></div>
+          <p class="trip-eta"><b data-flight="remaining"></b> to arrival</p>
+          <dl class="trip-stats">
+            <div><dt>Altitude</dt><dd data-flight="altitude"></dd></div>
+            <div><dt>Ground Speed</dt><dd data-flight="groundSpeed"></dd></div>
+            <div><dt>Outside Air Temp</dt><dd data-flight="outsideTemp"></dd></div>
+            <div><dt>Distance to Destination</dt><dd data-flight="milesToGo"></dd></div>
+            <div><dt>Local Time at Destination</dt><dd data-flight="localTimeAtDestination"></dd></div>
+          </dl>
+        </div>
+      </div>
+    </main>
+  </section>
+
+  <!-- ===================== LOGIN ===================== -->
+  <section id="login" class="view hidden">
+    <a class="corner-widget" href="#home" aria-label="Dulta Sync home"><svg><use href="#widget"/></svg></a>
+    <div class="narrow">
+      <h1 class="login-title">Log In to SkyMyles<sup>®</sup><br>for<br>Fast, Free Wi-Fi</h1>
+
+      <div class="field">
+        <label class="field-label" for="member-number">SkyMyles Number or Username</label>
+        <input class="field-value" id="member-number" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" maxlength="40">
+        <span class="help" data-tip="Stop asking questions" aria-label="Stop asking questions">?</span>
+      </div>
+      <label class="keep"><input type="checkbox" id="keep" checked><span class="box"><svg viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></span>Keep Me Logged In <span class="help" data-tip="Stop asking questions" aria-label="Stop asking questions">?</span></label>
+
+      <p class="login-error hidden" id="login-error">We’re sorry. We are unable to log you in at this time. Please try again.</p>
+      <button class="btn btn-red btn-block" id="login-btn"><span>Log In</span></button>
+
+      <div class="join"><span>Not a Member?</span><button class="btn btn-outline" data-sheet="join">Join</button></div>
+    </div>
+  </section>
+
+  <!-- ===================== CONNECTING ===================== -->
+  <section id="connecting" class="view hidden">
+    <header class="sync-header"><div>DULTA SYNC</div><small>WI-FI</small></header>
+
+    <div class="column">
+      <div class="player" id="player">
+        <div class="ad-stage">
+          <div class="scene" data-scene="0">
+            <div class="ad-logo"><svg><use href="#widget"/></svg>DULTA</div>
+            <div class="ad-kicker">FAST + FREE</div>
+            <div class="ad-huge">Wi-Fi</div>
+            <div class="ad-sub">FOR SKYMYLES<sup>®</sup> MEMBERS</div>
+          </div>
+          <div class="scene" data-scene="1">
+            <div class="ad-stack"><span>STREAM.</span><span>SCROLL.</span><span>SEND.</span></div>
+          </div>
+          <div class="scene" data-scene="2">
+            <svg class="ad-path" viewBox="0 0 400 120"><path d="M0 110 C120 110 160 20 400 14" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="10 9"/></svg>
+            <div class="ad-huge num">35,000 FT</div>
+            <div class="ad-sub">AND STILL CONNECTED</div>
+          </div>
+          <div class="scene" data-scene="3">
+            <div class="ad-kicker">NO TEE-MOBILE</div>
+            <div class="ad-big">SUBSCRIPTION</div>
+            <div class="ad-kicker">REQUIRED</div>
+          </div>
+          <div class="scene" data-scene="4">
+            <div class="ad-sub">FAST, FREE WI-FI</div>
+            <div class="ad-sub thin">PRESENTED BY</div>
+            <div class="ad-tmo">Tee-Mobile</div>
+            <div class="ad-logo small"><svg><use href="#widget"/></svg>DULTA</div>
+          </div>
+          <div class="ad-caption" id="ad-caption"></div>
+          <div class="ad-fine">Fast, Free Wi-Fi is available to all SkyMyles members. Available on most domestic flights. Tee-Mobile subscription not required.</div>
+        </div>
+        <div class="buffering"><span class="spinner"></span></div>
+      </div>
+      <div class="ad-progress"><span id="ad-progress"></span></div>
+      <div class="ad-controls">
+        <button class="sound" id="sound"><span>Sound <b id="sound-state">Off</b></span><svg><use id="sound-icon" href="#muted"/></svg></button>
+        <span class="ad-time" id="ad-time">00:30</span>
+      </div>
+
+      <div class="dots" id="dots"><i></i><i></i><i></i></div>
+      <h2 class="status-title">Connecting</h2>
+      <p class="status-sub">Please keep your browser open while we connect you to fast, free Wi-Fi.</p>
+    </div>
+
+    <div class="presented-block"><p>Fast, Free Wi-Fi presented by</p><div class="tmo">Tee-Mobile</div></div>
+  </section>
+
+  <!-- ===================== CONNECTED ===================== -->
+  <section id="connected" class="view hidden">
+    <header class="sync-header"><div>DULTA SYNC</div><small>WI-FI</small></header>
+    <div class="narrow center">
+      <div class="check-ring"><svg viewBox="0 0 48 48"><path d="M14 25l7 7 14-15" fill="none" stroke="currentColor" stroke-width="2.5"/></svg></div>
+      <h2 class="status-title">You’re Connected</h2>
+      <p class="status-sub">Enjoy Fast, Free Wi-Fi for the rest of your flight to <span data-flight="toCity"></span>.</p>
+      <button class="btn btn-red btn-block" id="browse">Start Browsing</button>
+      <a class="btn btn-outline btn-block" href="#home">Dulta Sync Home</a>
+    </div>
+    <div class="presented-block"><p>Fast, Free Wi-Fi presented by</p><div class="tmo">Tee-Mobile</div></div>
+  </section>
+
+  <!-- Bottom sheet used by the informational tiles -->
+  <div class="sheet-backdrop hidden" id="sheet">
+    <div class="sheet" role="dialog" aria-modal="true">
+      <h3 id="sheet-title"></h3>
+      <p id="sheet-body"></p>
+      <button class="btn btn-outline btn-block" id="sheet-close">Close</button>
+    </div>
+  </div>
+
+  <p class="parody">Parody project. Dulta and Tee-Mobile are fictional. Not affiliated with, endorsed by, or connected to Delta Air Lines or T-Mobile.</p>
+
+  <script src="flight.js"></script>
+  <script src="portal.js"></script>
+</body>
+</html>

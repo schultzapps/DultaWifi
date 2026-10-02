@@ -1,0 +1,26 @@
+/* Slow spells: images that haven't arrived yet stay blank, then paint in. See content.js. */
+
+html[data-dw-mode="throttle"] img:not([data-dw-seen]),
+html[data-dw-mode="throttle"] img[data-dw-stuck] {
+  clip-path: inset(0 0 100% 0) !important;
+}
+
+html[data-dw-mode="throttle"] img[data-dw-reveal="scan"] {
+  animation: dw-scan var(--dw-reveal, 6s) steps(14, end) both !important;
+}
+
+html[data-dw-mode="throttle"] img[data-dw-reveal="blur"] {
+  animation: dw-progressive var(--dw-reveal, 6s) ease-out both !important;
+}
+
+@keyframes dw-scan {
+  from { clip-path: inset(0 0 100% 0); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes dw-progressive {
+  0%   { filter: blur(16px); }
+  55%  { filter: blur(7px); }
+  80%  { filter: blur(2px); }
+  100% { filter: none; }
+}

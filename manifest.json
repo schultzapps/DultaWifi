@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "DultaWifi.com",
+  "version": "1.0.0",
+  "description": "You've experienced the skies. Now bring fast, free Wi-Fi back down to the ground and relive the joy of flying wherever you are.",
+  "permissions": ["declarativeNetRequest", "storage", "alarms", "scripting"],
+  "host_permissions": ["<all_urls>"],
+  "background": { "service_worker": "background.js" },
+  "declarative_net_request": {
+    "rule_resources": [{ "id": "portal", "enabled": true, "path": "rules.json" }]
+  },
+  "content_scripts": [
+    { "matches": ["http://*/*", "https://*/*"], "js": ["content.js"], "css": ["content.css"], "run_at": "document_start" },
+    { "matches": ["http://*/*", "https://*/*"], "js": ["inpage.js"], "run_at": "document_start", "world": "MAIN" }
+  ],
+  "web_accessible_resources": [
+    { "resources": ["portal.html"], "matches": ["<all_urls>"] }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "DultaWifi simulator",
+    "default_icon": { "16": "icons/16.png", "32": "icons/32.png", "48": "icons/48.png", "128": "icons/128.png" }
+  },
+  "icons": { "16": "icons/16.png", "32": "icons/32.png", "48": "icons/48.png", "128": "icons/128.png" },
+  "commands": {
+    "emergency-landing": {
+      "suggested_key": { "default": "Alt+Shift+L" },
+      "description": "Turn DultaWifi off and restore normal browsing"
+    }
+  }
+}
